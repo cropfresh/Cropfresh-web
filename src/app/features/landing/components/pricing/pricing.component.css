@@ -1,0 +1,863 @@
+/* ================================================================
+ * PRICING COMPONENT STYLES
+ * ================================================================
+ * Purpose: Comprehensive styling for pricing plans section
+ * Features: Futuristic design, hover effects, animations, responsive
+ * ================================================================ */
+
+:host {
+  display: block;
+}
+
+/* ================================================================
+ * * MAIN SECTION STYLING
+ * ================================================================ */
+
+.pricing-section {
+  position: relative;
+  padding: 5rem 0;
+  background: linear-gradient(
+    135deg,
+    #0a0a0a 0%,
+    #1a1a2e 25%,
+    #16213e 50%,
+    #0f3460 75%,
+    #0a0a0a 100%
+  );
+  overflow: hidden;
+}
+
+/* * Dark mode background enhancement */
+.dark .pricing-section {
+  background: linear-gradient(
+    135deg,
+    #000000 0%,
+    #0d1117 25%,
+    #161b22 50%,
+    #21262d 75%,
+    #0d1117 100%
+  );
+}
+
+/* * Floating particles background effect */
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 255, 136, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(0, 212, 255, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(255, 0, 255, 0.1) 0%,
+      transparent 50%
+    );
+  animation: floatingParticles 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatingParticles {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(10px, -15px) rotate(90deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-5px, 10px) rotate(180deg);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(-10px, -5px) rotate(270deg);
+    opacity: 0.7;
+  }
+}
+
+/* ================================================================
+ * * CONTAINER AND LAYOUT
+ * ================================================================ */
+
+.pricing-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .pricing-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pricing-container {
+    padding: 0 2rem;
+  }
+}
+
+/* ================================================================
+ * * HEADER SECTION
+ * ================================================================ */
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.2s forwards;
+}
+
+.pricing-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e0e7ff 30%,
+    #c7d2fe 60%,
+    #a5b4fc 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* * Glowing text effect */
+.pricing-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #00ff88, #00d4ff, #ff00ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.02);
+  }
+}
+
+.pricing-highlight {
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.pricing-subtitle {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ================================================================
+ * * PRICING GRID
+ * ================================================================ */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pricing-grid {
+    gap: 3rem;
+  }
+}
+
+/* ================================================================
+ * * PRICING CARD STYLING
+ * ================================================================ */
+
+.pricing-card {
+  position: relative;
+  background: rgba(30, 30, 50, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: slideInUp 0.8s ease-out forwards;
+}
+
+/* * Staggered animation for cards */
+.pricing-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.pricing-card:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.pricing-card:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* * Card hover effects */
+.pricing-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(0, 255, 136, 0.5);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(0, 255, 136, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* * Card holographic background effect */
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 136, 0.1) 0%,
+    rgba(0, 212, 255, 0.1) 50%,
+    rgba(255, 0, 255, 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: 1.5rem;
+}
+
+.pricing-card:hover::before {
+  opacity: 1;
+}
+
+/* * Animated border glow */
+.pricing-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    #00ff88,
+    #00d4ff,
+    #ff00ff,
+    #ffaa00,
+    #00ff88
+  );
+  background-size: 400% 400%;
+  border-radius: 1.5rem;
+  opacity: 0;
+  z-index: -1;
+  animation: gradientShift 3s ease infinite;
+  transition: opacity 0.4s ease;
+}
+
+.pricing-card:hover::after {
+  opacity: 0.6;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ================================================================
+ * * CARD HEADER STYLING
+ * ================================================================ */
+
+.card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ffffff, #e0e7ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.plan-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+/* ================================================================
+ * * PRICING DISPLAY
+ * ================================================================ */
+
+.pricing-display {
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.price-main {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  position: relative;
+}
+
+/* * Price hover animation */
+.pricing-card:hover .price-main {
+  animation: priceGlow 2s ease-in-out infinite;
+}
+
+@keyframes priceGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(0, 255, 136, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
+  }
+}
+
+.price-period {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ================================================================
+ * * FEATURES LIST STYLING
+ * ================================================================ */
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+  space-y: 1rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+/* * Staggered animation for feature items */
+.feature-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.feature-item:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.feature-item:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.feature-item:nth-child(4) {
+  animation-delay: 0.5s;
+}
+.feature-item:nth-child(5) {
+  animation-delay: 0.6s;
+}
+
+@keyframes slideInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 255, 136, 0.3);
+  padding-left: 1rem;
+  border-radius: 0.5rem;
+}
+
+.feature-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #00ff88;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+  color: #00d4ff;
+  transform: scale(1.2) rotate(360deg);
+  filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.6));
+}
+
+.feature-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.feature-item:hover .feature-text {
+  color: #ffffff;
+}
+
+/* ================================================================
+ * * CTA BUTTON STYLING
+ * ================================================================ */
+
+.cta-container {
+  margin-top: 2rem;
+}
+
+.cta-button {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* * Button hover effects */
+.cta-button:hover {
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(0, 255, 136, 0.4);
+  border-color: transparent;
+}
+
+/* * Button ripple effect */
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.4s ease,
+    height 0.4s ease;
+}
+
+.cta-button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* * Button text animation */
+.cta-button:hover {
+  letter-spacing: 0.05em;
+}
+
+/* ================================================================
+ * * POPULAR BADGE (for middle plan)
+ * ================================================================ */
+
+.pricing-card:nth-child(2) {
+  position: relative;
+  border-color: rgba(0, 255, 136, 0.4);
+  transform: scale(1.05);
+}
+
+.pricing-card:nth-child(2)::before {
+  opacity: 0.3;
+}
+
+.popular-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  color: #000000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+/* ================================================================
+ * * PRICING FOOTER
+ * ================================================================ */
+
+.pricing-footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.8s forwards;
+}
+
+.pricing-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.pricing-note-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #00ff88;
+  flex-shrink: 0;
+}
+
+/* * Guarantees Section */
+.pricing-guarantees {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .pricing-guarantees {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+.guarantee-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+/* * Staggered animation for guarantee items */
+.guarantee-item:nth-child(1) {
+  animation-delay: 0.9s;
+}
+.guarantee-item:nth-child(2) {
+  animation-delay: 1s;
+}
+.guarantee-item:nth-child(3) {
+  animation-delay: 1.1s;
+}
+.guarantee-item:nth-child(4) {
+  animation-delay: 1.2s;
+}
+
+.guarantee-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 136, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 255, 136, 0.15);
+}
+
+.guarantee-icon {
+  font-size: 1.5rem;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.guarantee-item:hover .guarantee-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.guarantee-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.guarantee-item:hover .guarantee-text {
+  color: #ffffff;
+}
+
+/* ================================================================
+ * * RESPONSIVE DESIGN
+ * ================================================================ */
+
+@media (max-width: 767px) {
+  .pricing-section {
+    padding: 3rem 0;
+  }
+
+  .pricing-title {
+    font-size: 2rem;
+  }
+
+  .pricing-card {
+    padding: 1.5rem;
+  }
+
+  .price-main {
+    font-size: 2.5rem;
+  }
+
+  .pricing-card:nth-child(2) {
+    transform: none;
+  }
+
+  .pricing-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+  }
+
+  .pricing-guarantees {
+    gap: 1rem;
+  }
+
+  .guarantee-item {
+    padding: 0.75rem;
+  }
+
+  .guarantee-text {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .pricing-container {
+    padding: 0 0.75rem;
+  }
+
+  .pricing-grid {
+    gap: 1.5rem;
+  }
+
+  .pricing-title {
+    font-size: 1.75rem;
+  }
+
+  .pricing-subtitle {
+    font-size: 1rem;
+  }
+
+  .pricing-note {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ================================================================
+ * * ACCESSIBILITY ENHANCEMENTS
+ * ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.pricing-card:focus-within {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}
+
+.cta-button:focus {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}
+
+.guarantee-item:focus {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}
+
+/* ================================================================
+ * * DARK MODE ENHANCEMENTS
+ * ================================================================ */
+
+.dark .pricing-card {
+  background: rgba(10, 10, 10, 0.8);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .pricing-card:hover {
+  border-color: rgba(0, 255, 136, 0.4);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(0, 255, 136, 0.15);
+}
+
+.dark .feature-item {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .feature-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(0, 255, 136, 0.2);
+}
+
+.dark .cta-button {
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .pricing-footer {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .guarantee-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .guarantee-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 255, 136, 0.2);
+}
+
+/* ================================================================
+ * * UTILITY ANIMATIONS
+ * ================================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* * Loading states */
+.pricing-card.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pricing-card.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: 2px solid #00ff88;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

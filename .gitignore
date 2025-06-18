@@ -1,0 +1,184 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# * ANGULAR & NODE.JS DEPENDENCIES
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# * ANGULAR BUILD OUTPUTS
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+
+# * ANGULAR CACHE & TEMPORARY FILES
+.angular/
+.sass-cache/
+/connect.lock
+/coverage/
+/libpeerconnection.log
+testem.log
+/typings
+
+# * TYPESCRIPT BUILD INFO
+*.tsbuildinfo
+
+# * ENVIRONMENT & CONFIGURATION FILES
+# ! SECURITY: Never commit environment files with secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# * IDE & EDITOR FILES
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# WebStorm / IntelliJ IDEA
+.idea/
+*.swp
+*.swo
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*~
+*.swp
+*.swo
+
+# * OS GENERATED FILES
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# * LOG FILES
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.eslintcache
+
+# * TESTING & COVERAGE
+/coverage/
+*.lcov
+.nyc_output/
+junit.xml
+
+# * PACKAGE MANAGER CACHE
+.npm/
+.yarn/
+.pnp.*
+.yarn-integrity
+
+# * RUNTIME DATA
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# * OPTIONAL DEPENDENCIES
+.optional/
+
+# * SERVERLESS
+.serverless/
+
+# * FUSEBOX CACHE
+.fusebox/
+
+# * DYNAMODB LOCAL
+.dynamodb/
+
+# * TERNJS PORT FILE
+.tern-port
+
+# * STORES VSCode VERSIONS USED FOR TESTING VSIX EXTENSIONS
+.vscode-test/
+
+# * YARN V2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# * LOCAL DEVELOPMENT FILES
+.local/
+local.properties
+
+# * BUILD TOOLS CACHE
+.gradle/
+build/
+
+# * DOCUMENTATION GENERATION
+docs/generated/
+
+# * FIREBASE
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+
+# * VERCEL
+.vercel/
+
+# * NEXT.JS (if mixed project)
+.next/
+out/
+
+# * NUXT.JS (if mixed project)
+.nuxt/
+dist/
+
+# * STORYBOOK
+storybook-static/
+
+# * TEMPORARY FILES
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# * SECURITY & CERTIFICATES
+*.pem
+*.key
+*.crt
+*.csr
+
+# * DATABASE
+*.sqlite
+*.sqlite3
+*.db
+
+# NOTE: Add any project-specific files or directories below this line
+# TODO: Review and customize based on specific project needs

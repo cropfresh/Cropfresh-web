@@ -1,0 +1,15 @@
+/* * MAIN APPLICATION STYLES */
+/* NOTE: Layout styles for the app component */
+
+/* * MAIN CONTENT CONTAINER */
+.main-content {
+  padding-top: 80px; /* Account for fixed navbar height */
+  min-height: 100vh;
+}
+
+/* * RESPONSIVE PADDING ADJUSTMENTS */
+@media (max-width: 1024px) {
+  .main-content {
+    padding-top: 64px; /* Smaller navbar on mobile */
+  }
+}

@@ -1,0 +1,221 @@
+<!-- ===================================================================
+  * FUTURISTIC FAQ SECTION - KNOWLEDGE BASE
+  * Purpose: Interactive FAQ with AI-powered search and animations
+  * Features: Holographic effects, smart animations, neural pathways
+  ===================================================================== -->
+
+<section class="faq-section" role="region" aria-label="Frequently Asked Questions">
+  <!-- * HOLOGRAPHIC BACKGROUND LAYERS -->
+  <div class="faq-holographic-bg">
+    <div class="holographic-layer layer-1"></div>
+    <div class="holographic-layer layer-2"></div>
+    <div class="holographic-layer layer-3"></div>
+    <div class="neural-network-bg">
+      <svg class="neural-svg" viewBox="0 0 1920 800">
+        <defs>
+          <linearGradient id="faqNeuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color: #00ff88; stop-opacity: 0.2" />
+            <stop offset="50%" style="stop-color: #00d4ff; stop-opacity: 0.4" />
+            <stop offset="100%" style="stop-color: #ff00ff; stop-opacity: 0.2" />
+          </linearGradient>
+        </defs>
+        <path
+          class="neural-path"
+          d="M0,400 Q480,300 960,400 T1920,400"
+          stroke="url(#faqNeuralGradient)"
+          stroke-width="2"
+          fill="none"
+          stroke-dasharray="20,15"
+        />
+        <path
+          class="neural-path delayed"
+          d="M0,450 Q480,350 960,450 T1920,450"
+          stroke="url(#faqNeuralGradient)"
+          stroke-width="1"
+          fill="none"
+          stroke-dasharray="15,20"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <!-- * MAIN CONTENT CONTAINER -->
+  <div class="faq-container">
+    <!-- * SECTION HEADER WITH AI EFFECTS -->
+    <div class="faq-header">
+      <div class="header-content">
+        <h2 class="faq-main-title">
+          <span class="title-word">Frequently</span>
+          <span class="title-word">Asked</span>
+          <span class="title-word highlight-word glitch-text" data-text="Questions"> Questions </span>
+        </h2>
+
+        <div class="ai-search-indicator">
+          <svg class="ai-brain-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1" opacity="0.5" />
+            <path d="M12 2v4m0 12v4m10-10h-4M6 12H2" stroke="currentColor" stroke-width="1" />
+          </svg>
+          <span class="ai-text">AI-Powered Knowledge Base</span>
+        </div>
+
+        <p class="faq-description">
+          Everything you need to know about <span class="brand-highlight">CropFresh</span>
+          and how our AI-powered platform transforms modern agriculture.
+        </p>
+      </div>
+    </div>
+
+    <!-- * FAQ ACCORDION WITH FUTURISTIC DESIGN -->
+    <div class="faq-accordion">
+      <div *ngFor="let faq of faqs; let i = index" class="faq-item" [class.is-open]="faq.isOpen" [attr.data-index]="i">
+        <!-- * FAQ Question Button -->
+        <button
+          class="faq-question-btn magnetic-element"
+          (click)="toggleFaq(i)"
+          type="button"
+          [attr.aria-expanded]="faq.isOpen"
+          [attr.aria-controls]="'faq-answer-' + i"
+        >
+          <div class="question-content">
+            <div class="question-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2" />
+                <path d="M12 17h.01" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+
+            <h3 class="question-text">{{ faq.question }}</h3>
+
+            <div class="expand-indicator">
+              <svg
+                class="expand-arrow"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                [class.rotated]="faq.isOpen"
+              >
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- * Hover Effect Elements -->
+          <div class="question-glow"></div>
+          <div class="question-particles">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+
+        <!-- * FAQ Answer Panel -->
+        <div class="faq-answer-panel" [id]="'faq-answer-' + i" [attr.aria-hidden]="!faq.isOpen">
+          <div class="answer-content">
+            <div class="answer-wrapper">
+              <div class="answer-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                  <polyline points="9,12 12,15 22,4" stroke="currentColor" stroke-width="2" />
+                </svg>
+              </div>
+              <p class="answer-text">{{ faq.answer }}</p>
+            </div>
+
+            <!-- * Related Links (if any) -->
+            <div class="answer-actions" *ngIf="i === 0">
+              <button class="action-link" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" />
+                </svg>
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- * Neural Connection Lines -->
+        <div class="neural-connector" *ngIf="faq.isOpen">
+          <svg class="connector-svg" viewBox="0 0 300 60">
+            <path
+              class="connector-path"
+              d="M0,30 Q75,10 150,30 T300,30"
+              stroke="var(--futuristic-primary)"
+              stroke-width="1"
+              fill="none"
+              stroke-dasharray="5,5"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- * SUPPORT CTA WITH FUTURISTIC DESIGN -->
+    <div class="support-cta">
+      <div class="cta-content">
+        <div class="cta-header">
+          <svg class="support-icon" width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <circle cx="12" cy="11" r="1" fill="currentColor" />
+            <circle cx="8" cy="11" r="1" fill="currentColor" />
+            <circle cx="16" cy="11" r="1" fill="currentColor" />
+          </svg>
+          <h3 class="cta-title">Still have questions?</h3>
+          <p class="cta-description">Our AI-powered support team is here to help you 24/7</p>
+        </div>
+
+        <div class="cta-buttons">
+          <button class="primary-support-btn futuristic-btn magnetic-element" type="button">
+            <span class="btn-bg"></span>
+            <span class="btn-content">
+              <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+              </svg>
+              <span class="btn-text">Contact Support</span>
+            </span>
+            <div class="btn-particles">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+
+          <button class="secondary-support-btn futuristic-btn magnetic-element" type="button">
+            <span class="btn-bg"></span>
+            <span class="btn-content">
+              <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                <polygon points="10,8 16,12 10,16" fill="currentColor" />
+              </svg>
+              <span class="btn-text">Watch Tutorial</span>
+            </span>
+            <div class="btn-glow"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- * Background Effects -->
+      <div class="cta-hologram-bg">
+        <div class="hologram-layer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- * FLOATING KNOWLEDGE PARTICLES -->
+  <div class="knowledge-particles">
+    <div class="particle particle-1" data-text="AI"></div>
+    <div class="particle particle-2" data-text="?"></div>
+    <div class="particle particle-3" data-text="!"></div>
+    <div class="particle particle-4" data-text="✓"></div>
+  </div>
+</section>

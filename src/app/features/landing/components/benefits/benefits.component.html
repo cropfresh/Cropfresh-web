@@ -1,0 +1,79 @@
+<section class="py-24 bg-gray-50 dark:bg-gray-900/50">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- * SECTION HEADER -->
+    <div class="text-center mb-16">
+      <h2 class="text-base font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-3">
+        Why Choose CropFresh
+      </h2>
+      <h3 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        Transforming Agriculture, One Farm at a Time
+      </h3>
+      <p class="max-w-3xl mx-auto text-xl text-gray-600 dark:text-gray-300">
+        Experience the benefits of digital agriculture with proven results and measurable impact
+      </p>
+    </div>
+
+    <!-- * BENEFITS GRID -->
+    <div class="benefits-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      @for (benefit of benefits; track benefit.title) {
+        <div class="benefit-card group relative">
+          <div
+            class="benefit-glow absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            [style.background]="'linear-gradient(135deg, ' + benefit.color + ')'"
+          ></div>
+
+          <div
+            class="benefit-content relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 h-full"
+          >
+            <!-- * Icon -->
+            <div class="benefit-icon-wrapper mb-6">
+              <div
+                class="benefit-icon inline-flex items-center justify-center w-16 h-16 rounded-2xl"
+                [style.background]="'linear-gradient(135deg, ' + benefit.color + ')'"
+              >
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path [attr.d]="benefit.icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- * Content -->
+            <h4 class="benefit-title text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              {{ benefit.title }}
+            </h4>
+            <p class="benefit-description text-gray-600 dark:text-gray-300 mb-4">
+              {{ benefit.description }}
+            </p>
+
+            <!-- * Stats -->
+            <div class="benefit-stats pt-4 border-t border-gray-200 dark:border-gray-700">
+              <span
+                class="stats-value text-3xl font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                [style.background]="'linear-gradient(135deg, ' + benefit.color + ')'"
+              >
+                {{ benefit.stats }}
+              </span>
+              <span class="stats-label text-sm text-gray-500 dark:text-gray-400 ml-2">improvement</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- * IMPACT STATS -->
+    <div class="impact-section mt-20">
+      <div class="impact-card bg-gradient-to-r from-emerald-600 to-teal-600 rounded-3xl p-12 text-white">
+        <h3 class="impact-title text-3xl font-bold text-center mb-12">Our Impact So Far</h3>
+
+        <div class="impact-stats grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          @for (stat of impactStats; track stat.label) {
+            <div class="impact-stat text-center">
+              <div class="stat-value text-5xl font-bold mb-2">{{ stat.value }}</div>
+              <div class="stat-label text-emerald-100">{{ stat.label }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,1012 @@
+/* * GLOBAL STYLES FOR CROPFRESH WEB APPLICATION */
+@import 'tailwindcss';
+
+@layer theme {
+  /* * TAILWIND CSS THEME CONFIGURATION */
+  :root {
+    /* Futuristic Colors */
+    --futuristic-primary: #00ff88;
+    --futuristic-secondary: #00d4ff;
+    --futuristic-accent: #ff00ff;
+    --futuristic-warning: #ffaa00;
+    --futuristic-dark: #0a0a0a;
+
+    /* Neon Glows */
+    --neon-green-glow: 0 0 20px #00ff88, 0 0 40px #00ff88, 0 0 60px #00ff88;
+    --neon-blue-glow: 0 0 20px #00d4ff, 0 0 40px #00d4ff, 0 0 60px #00d4ff;
+    --neon-purple-glow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff;
+
+    /* ============================================================================ */
+    /* * CROPFRESH COLOR PALETTE (Following 60-30-10 Rule) */
+    /* * 60% - Light & Warm Backgrounds (Dominant, Clean Foundation) */
+    /* * 30% - Green Colors (Supporting, Agricultural Identity) */
+    /* * 10% - Orange Colors (Highlights, Actions & CTAs) */
+    /* ============================================================================ */
+
+    /* * BRAND COLORS (From Logo Analysis) */
+    --color-brand-green: #228b22;
+    --color-brand-orange: #ff5722;
+    --color-brand-light-green: #4caf50;
+
+    /* ============================================================================ */
+    /* * 60% - LIGHT & WARM BACKGROUNDS (DOMINANT) */
+    /* ============================================================================ */
+
+    /* * Light & Warm Background Family - used for 60% of the interface */
+    --color-background-60-primary: #fffbff;
+    --color-background-60-secondary: #faf9f7;
+    --color-background-60-tertiary: #f8f6f4;
+    --color-background-60-container: #f5f5f5;
+    --color-background-60-card: #ffffff;
+
+    /* * Warm Light Tones (60% usage) */
+    --color-warm-60-light: #fff8e1;
+    --color-warm-60-beige: #f5f5dc;
+    --color-warm-60-ivory: #fffff0;
+    --color-warm-60-snow: #fffafa;
+    --color-warm-60-linen: #faf0e6;
+    --color-warm-60-pearl: #f8f6f0;
+
+    /* * Surface Colors for Main Areas (60% usage) */
+    --color-surface-60-primary: #fffbff;
+    --color-surface-60-secondary: #f7f7f7;
+    --color-surface-60-container: #f9f9f9;
+    --color-surface-60-modal: #ffffff;
+
+    /* * Text on Light Backgrounds (60% usage) */
+    --color-on-background-60: #1c1b1f;
+    --color-on-background-60-secondary: #49454f;
+    --color-on-background-60-tertiary: #79747e;
+    --color-on-background-60-disabled: #c4c7c5;
+
+    /* ============================================================================ */
+    /* * 30% - GREEN COLORS (SUPPORTING ELEMENTS) */
+    /* ============================================================================ */
+
+    /* * Green Family - used for 30% of the interface (Supporting Elements) */
+    --color-green-30-primary: #228b22;
+    --color-green-30-light: #4caf50;
+    --color-green-30-dark: #1b5e20;
+    --color-green-30-container: #e8f5e8;
+    --color-green-30-surface: #f1f8e9;
+
+    /* * Green Variations for Different Elements (30% usage) */
+    --color-green-30-fresh: #66bb6a;
+    --color-green-30-forest: #2e7d32;
+    --color-green-30-mint: #a5d6a7;
+    --color-green-30-sage: #81c784;
+    --color-green-30-emerald: #00c853;
+    --color-green-30-olive: #689f38;
+
+    /* * Navigation and Branding (30% usage) */
+    --color-navigation-30-selected: #228b22;
+    --color-navigation-30-indicator: #4caf50;
+    --color-brand-30-primary: #228b22;
+    --color-brand-30-secondary: #2e7d32;
+
+    /* * Text on Green (30% usage) */
+    --color-on-green-30: #ffffff;
+    --color-on-green-30-container: #0d4f0d;
+    --color-on-green-30-surface: #1b5e20;
+
+    /* ============================================================================ */
+    /* * 10% - ORANGE COLORS (HIGHLIGHTS & ACTIONS) */
+    /* ============================================================================ */
+
+    /* * Orange Family - used for 10% of the interface (Highlights & Actions) */
+    --color-orange-10-primary: #ff5722;
+    --color-orange-10-bright: #ff8f00;
+    --color-orange-10-light: #ffb74d;
+    --color-orange-10-dark: #e64a19;
+    --color-orange-10-container: #fff3e0;
+
+    /* * Orange Action Variations (10% usage) */
+    --color-orange-10-vibrant: #ff7043;
+    --color-orange-10-warm: #ffab40;
+    --color-orange-10-sunset: #ff6f00;
+    --color-orange-10-amber: #ffb300;
+    --color-orange-10-coral: #ff5722;
+    --color-orange-10-tangerine: #ff9800;
+
+    /* * Call-to-Action Colors (10% usage) */
+    --color-cta-10-primary: #ff5722;
+    --color-cta-10-secondary: #ff8f00;
+    --color-cta-10-emergency: #ff3d00;
+    --color-cta-10-success: #ff9800;
+
+    /* * Text on Orange (10% usage) */
+    --color-on-orange-10: #ffffff;
+    --color-on-orange-10-container: #5d2d00;
+    --color-on-orange-10-light: #1a1a1a;
+
+    /* ============================================================================ */
+    /* * SEMANTIC COLORS (Following 60-30-10 Rule) */
+    /* ============================================================================ */
+
+    /* * Success States (Using Green 30% + Light Backgrounds 60%) */
+    --color-success-primary: #4caf50;
+    --color-success-secondary: #81c784;
+    --color-success-container: #f1f8e9;
+    --color-success-highlight: #66bb6a;
+    --color-on-success: #ffffff;
+    --color-on-success-container: #1b5e20;
+
+    /* * Warning States (Using Orange 10% + Light Backgrounds 60%) */
+    --color-warning-primary: #ff9800;
+    --color-warning-secondary: #ffb74d;
+    --color-warning-container: #fff8e1;
+    --color-warning-highlight: #ffab40;
+    --color-on-warning: #ffffff;
+    --color-on-warning-container: #e65100;
+
+    /* * Error States (Using Orange 10% Intensity + Light Backgrounds 60%) */
+    --color-error-primary: #d32f2f;
+    --color-error-secondary: #ef5350;
+    --color-error-container: #fff5f5;
+    --color-error-highlight: #ff5252;
+    --color-on-error: #ffffff;
+    --color-on-error-container: #b71c1c;
+
+    /* * Information States (Using Green 30% Intensity + Light Backgrounds 60%) */
+    --color-info-primary: #1976d2;
+    --color-info-secondary: #64b5f6;
+    --color-info-container: #f8f9fa;
+    --color-info-highlight: #42a5f5;
+    --color-on-info: #ffffff;
+    --color-on-info-container: #0d47a1;
+
+    /* ============================================================================ */
+    /* * AGRICULTURAL CONTEXT COLORS (Following 60-30-10 Rule) */
+    /* ============================================================================ */
+
+    /* * Crop Health Indicators (Using 30% Green + 10% Orange + 60% Light) */
+    --color-crop-excellent: #2e7d32;
+    --color-crop-healthy: #4caf50;
+    --color-crop-moderate: #ff9800;
+    --color-crop-poor: #ff5722;
+    --color-crop-background: #f8f9fa;
+
+    /* * Agricultural Elements (Following Color Rule) */
+    --color-soil-rich: #8d6e63;
+    --color-soil-poor: #bcaaa4;
+    --color-soil-background: #faf9f7;
+
+    --color-water-blue: #2196f3;
+    --color-water-background: #f8f9fa;
+
+    --color-sunshine-yellow: #ffc107;
+    --color-sunshine-background: #fff8e1;
+
+    /* * Market/Financial Indicators (Following Color Rule) */
+    --color-price-up: #4caf50;
+    --color-price-down: #ff5722;
+    --color-price-stable: #757575;
+    --color-price-background: #fffbff;
+
+    --color-profit: #2e7d32;
+    --color-loss: #ff3d00;
+    --color-financial-background: #f9f9f9;
+
+    /* ============================================================================ */
+    /* * DARK MODE COLORS (Maintaining 60-30-10 Rule) */
+    /* ============================================================================ */
+
+    /* * Dark Theme 60% - Dark Backgrounds */
+    --color-dark-background-60: #121212;
+    --color-dark-surface-60: #1e1e1e;
+    --color-dark-container-60: #2c2c2c;
+    --color-dark-card-60: #1f1f1f;
+    --color-on-dark-background-60: #e0e0e0;
+    --color-on-dark-surface-60: #cccccc;
+
+    /* * Dark Theme 30% - Green Elements (Lighter/Desaturated) */
+    --color-dark-green-30: #4caf50;
+    --color-dark-green-30-container: #2e3a2e;
+    --color-dark-green-30-surface: #1a2e1a;
+    --color-on-dark-green-30: #e8f5e8;
+
+    /* * Dark Theme 10% - Orange Highlights (Softer) */
+    --color-dark-orange-10: #ffb74d;
+    --color-dark-orange-10-container: #3a2e1a;
+    --color-dark-orange-10-surface: #2e1a0a;
+    --color-on-dark-orange-10: #fff3e0;
+
+    /* ============================================================================ */
+    /* * LEGACY TAILWIND COMPATIBILITY COLORS */
+    /* ============================================================================ */
+
+    /* * Primary Colors (30% Green Theme) */
+    --color-primary-50: #f1f8e9;
+    --color-primary-100: #e8f5e8;
+    --color-primary-200: #a5d6a7;
+    --color-primary-300: #81c784;
+    --color-primary-400: #66bb6a;
+    --color-primary-500: #4caf50;
+    --color-primary-600: #228b22;
+    --color-primary-700: #2e7d32;
+    --color-primary-800: #1b5e20;
+    --color-primary-900: #0d4f0d;
+    --color-primary-950: #052e16;
+
+    /* * Secondary Colors (10% Orange Theme) */
+    --color-secondary-50: #fff8e1;
+    --color-secondary-100: #fff3e0;
+    --color-secondary-200: #ffb74d;
+    --color-secondary-300: #ffab40;
+    --color-secondary-400: #ff9800;
+    --color-secondary-500: #ff8f00;
+    --color-secondary-600: #ff5722;
+    --color-secondary-700: #e64a19;
+    --color-secondary-800: #ff3d00;
+    --color-secondary-900: #5d2d00;
+    --color-secondary-950: #422006;
+
+    /* * Accent Colors (Supporting Blue) */
+    --color-accent-50: #f8f9fa;
+    --color-accent-100: #e3f2fd;
+    --color-accent-200: #bbdefb;
+    --color-accent-300: #90caf9;
+    --color-accent-400: #64b5f6;
+    --color-accent-500: #2196f3;
+    --color-accent-600: #1976d2;
+    --color-accent-700: #1565c0;
+    --color-accent-800: #0d47a1;
+    --color-accent-900: #0d47a1;
+    --color-accent-950: #172554;
+
+    /* * FONT FAMILIES */
+    --font-sans:
+      'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      Arial, sans-serif;
+    --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
+
+    /* * CUSTOM ANIMATIONS */
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-float-delayed: float 6s ease-in-out 2s infinite;
+    --animate-fade-in: fadeIn 0.5s ease-in-out;
+    --animate-fade-up: fadeUp 0.6s ease-out;
+    --animate-scale-in: scaleIn 0.5s ease-out;
+    --animate-slide-in-left: slideInLeft 0.5s ease-out;
+    --animate-slide-in-right: slideInRight 0.5s ease-out;
+    --animate-bounce-slow: bounce 3s infinite;
+    --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-gradient-x: gradient-x 15s ease infinite;
+    --animate-gradient-y: gradient-y 15s ease infinite;
+    --animate-gradient-xy: gradient-xy 15s ease infinite;
+
+    /* * CUSTOM BACKDROP BLUR */
+    --backdrop-blur-xs: 2px;
+
+    /* * CUSTOM BREAKPOINTS */
+    --breakpoint-xs: 475px;
+    --breakpoint-3xl: 1920px;
+
+    /* ===================================================================
+     * CROPFRESH GLOBAL STYLES
+     * Purpose: Global typography, animations, and design system
+     * Features: Custom fonts, CSS variables, smooth animations
+     * ===================================================================
+     */
+
+    /* * FONT IMPORTS */
+    @font-face {
+      font-family: 'Inter';
+      src: url('/assets/fonts/Inter_18pt-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('/assets/fonts/Inter_18pt-Medium.ttf') format('truetype');
+      font-weight: 500;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('/assets/fonts/Inter_18pt-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      src: url('/assets/fonts/Inter_18pt-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+
+    /* * CSS CUSTOM PROPERTIES */
+    --primary-green: #10b981;
+    --primary-green-dark: #059669;
+    --primary-green-light: #34d399;
+    --accent-emerald: #6ee7b7;
+
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-bg-hover: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --glass-backdrop: blur(20px) saturate(180%);
+
+    /* Dark mode glassmorphism */
+    --glass-bg-dark: rgba(0, 0, 0, 0.2);
+    --glass-bg-hover-dark: rgba(0, 0, 0, 0.3);
+    --glass-border-dark: rgba(255, 255, 255, 0.1);
+    --glass-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-fast: all 0.15s ease-in-out;
+
+    /* Spacing */
+    --navbar-height: 80px;
+    --navbar-height-scrolled: 70px;
+
+    /* Border radius */
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 2rem;
+  }
+}
+
+/* * CUSTOM KEYFRAMES */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+@keyframes gradient-y {
+  0%,
+  100% {
+    background-size: 400% 400%;
+    background-position: center top;
+  }
+  50% {
+    background-size: 400% 400%;
+    background-position: center bottom;
+  }
+}
+
+@keyframes gradient-xy {
+  0%,
+  100% {
+    background-size: 400% 400%;
+    background-position: left center;
+  }
+  25% {
+    background-size: 400% 400%;
+    background-position: right center;
+  }
+  50% {
+    background-size: 400% 400%;
+    background-position: right bottom;
+  }
+  75% {
+    background-size: 400% 400%;
+    background-position: left bottom;
+  }
+}
+
+/* * CUSTOM UTILITY CLASSES */
+.animate-float {
+  animation: var(--animate-float);
+}
+
+.animate-float-delayed {
+  animation: var(--animate-float-delayed);
+}
+
+.animate-fade-in {
+  animation: var(--animate-fade-in);
+}
+
+.animate-fade-up {
+  animation: var(--animate-fade-up);
+}
+
+.animate-scale-in {
+  animation: var(--animate-scale-in);
+}
+
+.animate-slide-in-left {
+  animation: var(--animate-slide-in-left);
+}
+
+.animate-slide-in-right {
+  animation: var(--animate-slide-in-right);
+}
+
+.animate-bounce-slow {
+  animation: var(--animate-bounce-slow);
+}
+
+.animate-pulse-slow {
+  animation: var(--animate-pulse-slow);
+}
+
+.animate-gradient-x {
+  animation: var(--animate-gradient-x);
+}
+
+.animate-gradient-y {
+  animation: var(--animate-gradient-y);
+}
+
+.animate-gradient-xy {
+  animation: var(--animate-gradient-xy);
+}
+
+.backdrop-blur-xs {
+  backdrop-filter: blur(var(--backdrop-blur-xs));
+}
+
+/* * BASE STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  line-height: 1.6;
+  color: var(--color-on-background-60);
+  background-color: var(--color-background-60-primary);
+  overflow-x: hidden;
+  position: relative;
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+/* * SELECTION STYLES */
+::selection {
+  background-color: var(--color-brand-green);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--color-brand-green);
+  color: white;
+}
+
+/* * DARK MODE SUPPORT */
+.dark body {
+  background-color: var(--color-dark-background-60);
+  color: var(--color-on-dark-background-60);
+}
+
+/* * ACCESSIBILITY IMPROVEMENTS */
+:focus {
+  outline: 2px solid var(--color-brand-green);
+  outline-offset: 2px;
+}
+
+.focus-visible:focus {
+  outline: 2px solid var(--color-brand-green);
+  outline-offset: 2px;
+}
+
+/* * SMOOTH TRANSITIONS */
+* {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* * PERFORMANCE OPTIMIZATIONS */
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* * CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-60-secondary);
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-dark-surface-60);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-green);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green-30-dark);
+}
+
+/* * LOADING ANIMATIONS */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    to right,
+    var(--color-background-60-tertiary) 0%,
+    var(--color-surface-60-secondary) 20%,
+    var(--color-background-60-tertiary) 40%,
+    var(--color-background-60-tertiary) 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* * GRADIENT TEXT */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-green) 0%,
+    var(--color-green-30-dark) 50%,
+    var(--color-green-30-forest) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* * GLASS MORPHISM */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* * HOVER EFFECTS */
+.hover-lift {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* * GRADIENT BACKGROUNDS (Following 60-30-10 Rule) */
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-green) 0%,
+    var(--color-green-30-dark) 100%
+  );
+}
+
+.gradient-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-orange) 0%,
+    var(--color-orange-10-dark) 100%
+  );
+}
+
+.gradient-accent {
+  background: linear-gradient(
+    135deg,
+    var(--color-info-primary) 0%,
+    var(--color-accent-600) 100%
+  );
+}
+
+.gradient-mesh {
+  background-color: var(--color-brand-green);
+  background-image:
+    radial-gradient(at 47% 33%, var(--color-green-30-dark) 0, transparent 59%),
+    radial-gradient(at 82% 65%, var(--color-green-30-forest) 0, transparent 55%);
+}
+
+/* * AGRICULTURAL GRADIENT (Following 60-30-10 Distribution) */
+.gradient-agricultural {
+  background: linear-gradient(
+    180deg,
+    var(--color-background-60-primary) 0%,
+    var(--color-green-30-container) 60%,
+    var(--color-orange-10-container) 100%
+  );
+}
+
+/* * SUCCESS/HEALTH GRADIENTS */
+.gradient-crop-excellent {
+  background: linear-gradient(
+    135deg,
+    var(--color-crop-excellent) 0%,
+    var(--color-green-30-forest) 100%
+  );
+}
+
+.gradient-crop-healthy {
+  background: linear-gradient(
+    135deg,
+    var(--color-crop-healthy) 0%,
+    var(--color-green-30-fresh) 100%
+  );
+}
+
+.gradient-crop-warning {
+  background: linear-gradient(
+    135deg,
+    var(--color-crop-moderate) 0%,
+    var(--color-orange-10-amber) 100%
+  );
+}
+
+.gradient-crop-poor {
+  background: linear-gradient(
+    135deg,
+    var(--color-crop-poor) 0%,
+    var(--color-error-primary) 100%
+  );
+}
+
+/* * TEXT SHADOWS FOR BETTER READABILITY */
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* * CUSTOM ANIMATIONS */
+@keyframes float-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-up {
+  animation: float-up 0.6s ease-out forwards;
+}
+
+/* * RESPONSIVE TYPOGRAPHY */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* * UTILITIES */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================================================ */
+/* * CROPFRESH SPECIFIC UTILITY CLASSES */
+/* ============================================================================ */
+
+/* * Background Utilities (60% Rule) */
+.bg-cropfresh-60-primary {
+  background-color: var(--color-background-60-primary);
+}
+.bg-cropfresh-60-secondary {
+  background-color: var(--color-background-60-secondary);
+}
+.bg-cropfresh-60-card {
+  background-color: var(--color-background-60-card);
+}
+.bg-cropfresh-60-container {
+  background-color: var(--color-background-60-container);
+}
+
+/* * Supporting Color Utilities (30% Rule) */
+.bg-cropfresh-30-primary {
+  background-color: var(--color-green-30-primary);
+}
+.bg-cropfresh-30-light {
+  background-color: var(--color-green-30-light);
+}
+.bg-cropfresh-30-container {
+  background-color: var(--color-green-30-container);
+}
+.text-cropfresh-30-primary {
+  color: var(--color-green-30-primary);
+}
+.text-cropfresh-30-light {
+  color: var(--color-green-30-light);
+}
+
+/* * Action Color Utilities (10% Rule) */
+.bg-cropfresh-10-primary {
+  background-color: var(--color-orange-10-primary);
+}
+.bg-cropfresh-10-bright {
+  background-color: var(--color-orange-10-bright);
+}
+.text-cropfresh-10-primary {
+  color: var(--color-orange-10-primary);
+}
+.text-cropfresh-10-bright {
+  color: var(--color-orange-10-bright);
+}
+
+/* * Agricultural Context Utilities */
+.bg-crop-excellent {
+  background-color: var(--color-crop-excellent);
+}
+.bg-crop-healthy {
+  background-color: var(--color-crop-healthy);
+}
+.bg-crop-moderate {
+  background-color: var(--color-crop-moderate);
+}
+.bg-crop-poor {
+  background-color: var(--color-crop-poor);
+}
+
+.text-crop-excellent {
+  color: var(--color-crop-excellent);
+}
+.text-crop-healthy {
+  color: var(--color-crop-healthy);
+}
+.text-crop-moderate {
+  color: var(--color-crop-moderate);
+}
+.text-crop-poor {
+  color: var(--color-crop-poor);
+}
+
+/* * Brand Utilities */
+.bg-brand-green {
+  background-color: var(--color-brand-green);
+}
+.bg-brand-orange {
+  background-color: var(--color-brand-orange);
+}
+.text-brand-green {
+  color: var(--color-brand-green);
+}
+.text-brand-orange {
+  color: var(--color-brand-orange);
+}
+
+/* * Semantic State Utilities */
+.bg-success {
+  background-color: var(--color-success-primary);
+}
+.bg-warning {
+  background-color: var(--color-warning-primary);
+}
+.bg-error {
+  background-color: var(--color-error-primary);
+}
+.bg-info {
+  background-color: var(--color-info-primary);
+}
+
+.text-success {
+  color: var(--color-success-primary);
+}
+.text-warning {
+  color: var(--color-warning-primary);
+}
+.text-error {
+  color: var(--color-error-primary);
+}
+.text-info {
+  color: var(--color-info-primary);
+}
+
+/* * CTA BUTTON STYLES (Following 10% Orange Rule) */
+.btn-cta-primary {
+  background-color: var(--color-cta-10-primary);
+  color: var(--color-on-orange-10);
+  border-color: var(--color-cta-10-primary);
+}
+
+.btn-cta-primary:hover {
+  background-color: var(--color-orange-10-dark);
+  border-color: var(--color-orange-10-dark);
+}
+
+.btn-cta-secondary {
+  background-color: var(--color-cta-10-secondary);
+  color: var(--color-on-orange-10);
+  border-color: var(--color-cta-10-secondary);
+}
+
+.btn-cta-secondary:hover {
+  background-color: var(--color-orange-10-vibrant);
+  border-color: var(--color-orange-10-vibrant);
+}
+
+/* * NAVIGATION STYLES (Following 30% Green Rule) */
+.nav-primary {
+  background-color: var(--color-background-60-primary);
+  border-bottom: 1px solid var(--color-surface-60-secondary);
+}
+
+.nav-item-selected {
+  background-color: var(--color-navigation-30-selected);
+  color: var(--color-on-green-30);
+}
+
+.nav-item-indicator {
+  background-color: var(--color-navigation-30-indicator);
+}
+
+/* * CARD STYLES (Following 60% Background Rule) */
+.card-primary {
+  background-color: var(--color-background-60-card);
+  border: 1px solid var(--color-surface-60-secondary);
+  color: var(--color-on-background-60);
+}
+
+.card-container {
+  background-color: var(--color-background-60-container);
+  color: var(--color-on-background-60);
+}
+
+/* * AGRICULTURAL COMPONENT STYLES */
+.crop-health-excellent {
+  background-color: var(--color-crop-excellent);
+  color: var(--color-on-green-30);
+}
+
+.crop-health-healthy {
+  background-color: var(--color-crop-healthy);
+  color: var(--color-on-green-30);
+}
+
+.crop-health-moderate {
+  background-color: var(--color-crop-moderate);
+  color: var(--color-on-orange-10);
+}
+
+.crop-health-poor {
+  background-color: var(--color-crop-poor);
+  color: var(--color-on-orange-10);
+}
+
+/* * PRICE INDICATOR STYLES */
+.price-up {
+  color: var(--color-price-up);
+}
+
+.price-down {
+  color: var(--color-price-down);
+}
+
+.price-stable {
+  color: var(--color-price-stable);
+}
+
+/* * DARK MODE OVERRIDES */
+.dark .card-primary {
+  background-color: var(--color-dark-card-60);
+  border-color: var(--color-dark-surface-60);
+  color: var(--color-on-dark-background-60);
+}
+
+.dark .nav-primary {
+  background-color: var(--color-dark-background-60);
+  border-bottom-color: var(--color-dark-surface-60);
+}
+
+.dark .nav-item-selected {
+  background-color: var(--color-dark-green-30);
+  color: var(--color-on-dark-green-30);
+}

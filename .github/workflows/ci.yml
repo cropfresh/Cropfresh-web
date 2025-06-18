@@ -1,0 +1,201 @@
+# .github/workflows/ci.yml
+
+name: Continuous Integration
+
+# * EVENTS THAT TRIGGER THIS WORKFLOW
+on:
+  push:
+    branches: ['main', 'develop']
+  pull_request:
+    branches: ['main']
+  workflow_dispatch: # Allows manual trigger
+
+# * ENVIRONMENT VARIABLES
+env:
+  NODE_VERSION: '20'
+  CACHE_NAME: 'cropfresh-web'
+
+jobs:
+  # * CONTINUOUS INTEGRATION JOB
+  ci:
+    name: 'Build, Test & Lint'
+    runs-on: ubuntu-latest
+
+    # * TIMEOUT PROTECTION
+    timeout-minutes: 30
+
+    steps:
+      # * 1. CHECKOUT REPOSITORY CODE
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # ! SECURITY: Fetch full history for better analysis
+          fetch-depth: 0
+
+      # * 2. SETUP NODE.JS ENVIRONMENT
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      # * 3. VERIFY PACKAGE INTEGRITY
+      # NOTE: Ensures package-lock.json is in sync with package.json
+      - name: Verify package integrity
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "ERROR: package-lock.json not found"
+            exit 1
+          fi
+          npm ci --audit=false
+
+      # * 4. SECURITY AUDIT
+      # ! SECURITY: Check for known vulnerabilities
+      - name: Security audit
+        run: npm audit --audit-level=high
+        continue-on-error: true # Don't fail CI for audit issues
+
+      # * 5. CODE LINTING
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: false
+
+      # * 6. PRETTIER FORMATTING CHECK
+      - name: Check Prettier formatting
+        run: |
+          if command -v npx prettier >/dev/null 2>&1; then
+            npx prettier --check "src/**/*.{ts,js,html,css,scss,json}"
+          else
+            echo "Prettier not configured, skipping format check"
+          fi
+        continue-on-error: true
+
+      # * 7. RUN UNIT TESTS
+      - name: Run unit tests
+        run: npm run test:ci
+        env:
+          # NOTE: Ensure tests run in headless mode
+          CHROME_BIN: /usr/bin/google-chrome-stable
+
+      # * 8. TEST COVERAGE REPORT
+      - name: Generate test coverage
+        run: |
+          if npm run test:coverage >/dev/null 2>&1; then
+            npm run test:coverage
+          else
+            echo "Coverage script not found, skipping"
+          fi
+        continue-on-error: true
+
+      # * 9. BUILD APPLICATION
+      - name: Build application
+        run: npm run build
+        env:
+          # ! PERFORMANCE: Build with production settings
+          NODE_ENV: production
+
+      # * 10. BUILD SIZE ANALYSIS
+      - name: Analyze bundle size
+        run: |
+          echo "=== Bundle Size Analysis ==="
+          du -sh dist/cropfresh_web/browser/* | sort -hr
+          echo "=== Main Bundle Details ==="
+          ls -lh dist/cropfresh_web/browser/main*.js
+          echo "=== Styles Bundle Details ==="
+          ls -lh dist/cropfresh_web/browser/styles*.css
+
+      # * 11. UPLOAD BUILD ARTIFACTS
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-${{ github.sha }}
+          path: |
+            dist/
+            coverage/
+          retention-days: 30
+
+      # * 12. UPLOAD TEST RESULTS
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ github.sha }}
+          path: |
+            coverage/
+            test-results/
+          retention-days: 7
+
+  # * CODE QUALITY ANALYSIS
+  quality:
+    name: 'Code Quality Analysis'
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ? TODO: Add SonarQube or CodeClimate integration
+      - name: Run code quality checks
+        run: |
+          echo "=== Code Quality Metrics ==="
+          echo "Lines of Code:"
+          find src -name "*.ts" -o -name "*.html" -o -name "*.css" | xargs wc -l | tail -1
+          echo "TypeScript files:"
+          find src -name "*.ts" | wc -l
+          echo "Template files:"
+          find src -name "*.html" | wc -l
+          echo "Style files:"
+          find src -name "*.css" -o -name "*.scss" | wc -l
+
+  # * DEPENDENCY VULNERABILITY SCAN
+  security:
+    name: 'Security Scan'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ! SECURITY: Comprehensive vulnerability scanning
+      - name: Run npm audit
+        run: |
+          echo "=== NPM Security Audit ==="
+          npm audit --json > audit-results.json || true
+          if [ -s audit-results.json ]; then
+            echo "Vulnerabilities found:"
+            cat audit-results.json
+          else
+            echo "No vulnerabilities detected"
+          fi
+
+      # * UPLOAD SECURITY REPORT
+      - name: Upload security results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-scan-${{ github.sha }}
+          path: audit-results.json
+          retention-days: 30

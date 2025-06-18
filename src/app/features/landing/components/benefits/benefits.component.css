@@ -1,0 +1,255 @@
+/* ===================================================================
+ * * BENEFITS COMPONENT STYLES
+ * * Purpose: Enhanced styling for the benefits showcase section
+ * ===================================================================
+ */
+
+:host {
+  display: block;
+}
+
+/* * BENEFITS GRID */
+.benefits-grid {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* * BENEFIT CARD ANIMATIONS */
+.benefit-card {
+  animation: slideInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.benefit-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.benefit-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.benefit-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.benefit-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.benefit-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.benefit-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* * ENHANCED HOVER EFFECTS */
+.benefit-content {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.benefit-content:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.benefit-glow {
+  filter: blur(20px);
+  transform: scale(1.1);
+}
+
+/* * ICON ANIMATIONS */
+.benefit-icon-wrapper {
+  position: relative;
+}
+
+.benefit-icon {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.benefit-card:hover .benefit-icon {
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* * TEXT ANIMATIONS */
+.benefit-title {
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover .benefit-title {
+  transform: translateY(-2px);
+}
+
+.benefit-description {
+  line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+/* * STATS SECTION */
+.benefit-stats {
+  position: relative;
+}
+
+.stats-value {
+  display: inline-block;
+  transition: all 0.3s ease;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.benefit-card:hover .stats-value {
+  transform: scale(1.1);
+}
+
+.stats-label {
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover .stats-label {
+  color: #10b981;
+}
+
+/* * IMPACT SECTION */
+.impact-section {
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.impact-card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+  transition: all 0.3s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(16, 185, 129, 0.4);
+}
+
+.impact-title {
+  position: relative;
+  z-index: 2;
+}
+
+.impact-stats {
+  position: relative;
+  z-index: 2;
+}
+
+.impact-stat {
+  transition: all 0.3s ease;
+}
+
+.impact-stat:hover {
+  transform: translateY(-5px);
+}
+
+.stat-value {
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.impact-stat:hover .stat-value {
+  transform: scale(1.1);
+}
+
+.stat-label {
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.impact-stat:hover .stat-label {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* * KEYFRAME ANIMATIONS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* * RESPONSIVE ENHANCEMENTS */
+@media (max-width: 768px) {
+  .benefit-card {
+    margin-bottom: 2rem;
+  }
+
+  .benefit-content {
+    padding: 1.5rem;
+  }
+
+  .benefit-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .benefit-title {
+    font-size: 1.5rem;
+  }
+
+  .impact-card {
+    padding: 2rem;
+  }
+
+  .impact-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+  }
+}
+
+/* * ACCESSIBILITY IMPROVEMENTS */
+@media (prefers-reduced-motion: reduce) {
+  .benefit-card,
+  .benefits-grid,
+  .impact-section {
+    animation: none;
+  }
+
+  .benefit-content:hover,
+  .benefit-card:hover .benefit-icon,
+  .benefit-card:hover .benefit-title,
+  .benefit-card:hover .stats-value,
+  .impact-card:hover,
+  .impact-stat:hover {
+    transform: none;
+  }
+}
+
+/* * FOCUS STATES FOR ACCESSIBILITY */
+.benefit-card:focus-within {
+  outline: 2px solid #10b981;
+  outline-offset: 4px;
+}
+
+/* * DARK MODE ENHANCEMENTS */
+@media (prefers-color-scheme: dark) {
+  .benefit-content {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .benefit-content:hover {
+    border-color: #10b981;
+  }
+}

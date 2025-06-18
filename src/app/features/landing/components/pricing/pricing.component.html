@@ -1,0 +1,102 @@
+<!-- ================================================================
+     * PRICING SECTION
+     * ================================================================
+     * Purpose: Display pricing plans with futuristic design
+     * Features: Enhanced cards, animations, popular badge
+     * ================================================================ -->
+
+<section class="pricing-section">
+  <div class="pricing-container">
+    <!-- * Section Header -->
+    <div class="pricing-header">
+      <h2 class="pricing-title" data-text="Choose Your Perfect Plan">
+        Choose Your <span class="pricing-highlight">Perfect Plan</span>
+      </h2>
+      <p class="pricing-subtitle">Flexible pricing options designed to grow with your agricultural business</p>
+    </div>
+
+    <!-- * Pricing Grid -->
+    <div class="pricing-grid">
+      <!-- * Individual Pricing Cards -->
+      <div *ngFor="let plan of pricingPlans; let i = index" class="pricing-card" [class.popular]="i === 1">
+        <!-- * Popular Badge (for middle plan) -->
+        <div *ngIf="i === 1" class="popular-badge">Most Popular</div>
+
+        <!-- * Card Header -->
+        <div class="card-header">
+          <h3 class="plan-name">{{ plan.name }}</h3>
+          <p class="plan-description">{{ plan.description }}</p>
+        </div>
+
+        <!-- * Pricing Display -->
+        <div class="pricing-display">
+          <div class="price-container">
+            <span class="price-main">${{ plan.price }}</span>
+            <span class="price-period">/month</span>
+          </div>
+        </div>
+
+        <!-- * Features List -->
+        <ul class="features-list">
+          <li *ngFor="let feature of plan.features" class="feature-item">
+            <svg
+              class="feature-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="feature-text">{{ feature }}</span>
+          </li>
+        </ul>
+
+        <!-- * CTA Button -->
+        <div class="cta-container">
+          <button
+            class="cta-button"
+            (click)="onSelectPlan(plan, i)"
+            [attr.aria-label]="'Select ' + plan.name + ' plan'"
+          >
+            {{ plan.buttonText }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- * Additional Information -->
+    <div class="pricing-footer">
+      <p class="pricing-note">
+        <svg class="pricing-note-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        All plans include a 14-day free trial with no commitments. Cancel anytime.
+      </p>
+
+      <div class="pricing-guarantees">
+        <div class="guarantee-item">
+          <span class="guarantee-icon">🔒</span>
+          <span class="guarantee-text">Enterprise Security</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">📱</span>
+          <span class="guarantee-text">Mobile & Web Access</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">🌍</span>
+          <span class="guarantee-text">Global Support</span>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">⚡</span>
+          <span class="guarantee-text">99.9% Uptime</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

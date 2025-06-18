@@ -1,0 +1,389 @@
+/* ================================================================
+ * LANDING PAGE COMPONENT STYLES
+ * ================================================================
+ * Purpose: Main landing page layout and section coordination
+ * Features: Smooth scrolling, section transitions, performance
+ * ================================================================ */
+
+:host {
+  display: block;
+}
+
+/* ================================================================
+ * * MAIN LANDING PAGE CONTAINER
+ * ================================================================ */
+
+.landing-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: linear-gradient(
+    180deg,
+    #0a0a0a 0%,
+    #1a1a2e 25%,
+    #16213e 50%,
+    #0f3460 75%,
+    #0a0a0a 100%
+  );
+}
+
+/* * Dark mode background enhancement */
+.dark .landing-page {
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #0d1117 25%,
+    #161b22 50%,
+    #21262d 75%,
+    #0d1117 100%
+  );
+}
+
+/* ================================================================
+ * * SECTION STYLING
+ * ================================================================ */
+
+.landing-section {
+  position: relative;
+  scroll-margin-top: 80px; /* Account for fixed navigation */
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* * Section loading animation */
+.landing-section.loading {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+/* * Section fade-in animation */
+.landing-section.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* * Individual section spacing and behavior */
+.landing-section:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ================================================================
+ * * FOOTER STYLING
+ * ================================================================ */
+
+.landing-footer {
+  position: relative;
+  margin-top: 0;
+}
+
+/* ================================================================
+ * * SCROLL BEHAVIOR ENHANCEMENTS
+ * ================================================================ */
+
+/* * Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* * Enhanced scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00d4ff, #ff00ff);
+}
+
+/* * Firefox scrollbar styling */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff88 rgba(10, 10, 10, 0.5);
+}
+
+/* ================================================================
+ * * INTERSECTION OBSERVER ANIMATIONS
+ * ================================================================ */
+
+/* * Section reveal animations triggered by scroll */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+
+.section-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* * Staggered reveal for multiple elements */
+.section-reveal.revealed:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.section-reveal.revealed:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.section-reveal.revealed:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.section-reveal.revealed:nth-child(4) {
+  transition-delay: 0.4s;
+}
+.section-reveal.revealed:nth-child(5) {
+  transition-delay: 0.5s;
+}
+
+/* ================================================================
+ * * PERFORMANCE OPTIMIZATIONS
+ * ================================================================ */
+
+/* * GPU acceleration for smooth animations */
+.landing-section,
+.landing-footer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* * Optimize for mobile scrolling */
+.landing-page {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* * Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ================================================================
+ * * RESPONSIVE DESIGN
+ * ================================================================ */
+
+/* * Mobile optimizations */
+@media (max-width: 768px) {
+  .landing-section {
+    scroll-margin-top: 60px; /* Smaller navigation on mobile */
+  }
+
+  .section-reveal {
+    transform: translateY(30px); /* Reduced animation distance */
+  }
+}
+
+/* * Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .landing-section {
+    scroll-margin-top: 70px;
+  }
+}
+
+/* * Large screen optimizations */
+@media (min-width: 1200px) {
+  .landing-page {
+    background-attachment: fixed; /* Parallax effect on larger screens */
+  }
+}
+
+/* ================================================================
+ * * SECTION-SPECIFIC ADJUSTMENTS
+ * ================================================================ */
+
+/* * Hero section specific styling */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* * Features section background variation */
+#features {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 46, 0.3) 0%,
+    rgba(22, 33, 62, 0.2) 100%
+  );
+}
+
+/* * Testimonials section enhancement */
+#testimonials {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 52, 96, 0.2) 0%,
+    rgba(10, 10, 10, 0.3) 100%
+  );
+}
+
+/* * Pricing section highlight */
+#pricing {
+  background: linear-gradient(
+    135deg,
+    rgba(22, 33, 62, 0.4) 0%,
+    rgba(26, 26, 46, 0.3) 100%
+  );
+}
+
+/* ================================================================
+ * * LOADING STATES
+ * ================================================================ */
+
+/* * Global loading overlay */
+.landing-page.loading {
+  position: relative;
+}
+
+.landing-page.loading::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  pointer-events: none;
+}
+
+.landing-page.loaded::before {
+  opacity: 0;
+}
+
+/* * Loading spinner */
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #00ff88;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 10000;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* ================================================================
+ * * ACCESSIBILITY ENHANCEMENTS
+ * ================================================================ */
+
+/* * Focus management for keyboard navigation */
+.landing-section:focus {
+  outline: 2px solid #00ff88;
+  outline-offset: 4px;
+}
+
+/* * Skip links for screen readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #00ff88;
+  color: #000000;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 100;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* * High contrast mode support */
+@media (prefers-contrast: high) {
+  .landing-page {
+    background: #000000;
+  }
+
+  .landing-section {
+    border-bottom-color: #ffffff;
+  }
+}
+
+/* ================================================================
+ * * PRINT STYLES
+ * ================================================================ */
+
+@media print {
+  .landing-page {
+    background: white !important;
+    color: black !important;
+  }
+
+  .landing-section {
+    page-break-inside: avoid;
+    border-bottom: 1px solid #cccccc;
+  }
+
+  /* Hide non-essential sections for print */
+  #cta,
+  .landing-footer {
+    display: none;
+  }
+}
+
+/* ================================================================
+ * * DARK MODE SPECIFIC ENHANCEMENTS
+ * ================================================================ */
+
+.dark .landing-section {
+  border-bottom-color: rgba(255, 255, 255, 0.03);
+}
+
+.dark #features {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 17, 23, 0.4) 0%,
+    rgba(22, 27, 34, 0.3) 100%
+  );
+}
+
+.dark #testimonials {
+  background: linear-gradient(
+    135deg,
+    rgba(33, 38, 45, 0.3) 0%,
+    rgba(13, 17, 23, 0.4) 100%
+  );
+}
+
+.dark #pricing {
+  background: linear-gradient(
+    135deg,
+    rgba(22, 27, 34, 0.5) 0%,
+    rgba(33, 38, 45, 0.4) 100%
+  );
+}

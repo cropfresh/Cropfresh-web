@@ -1,0 +1,309 @@
+<!-- ===================================================================
+  * FUTURISTIC HERO SECTION WITH 3D GRAPHICS & AI ELEMENTS
+  * Purpose: Next-generation hero section with immersive experience
+  * Features: THREE.js 3D scene, particle systems, holographic UI
+  ===================================================================== -->
+
+  <section 
+  #heroSection 
+  [class]="heroClasses()"
+  class="hero-section"
+>
+  <!-- * THREE.JS 3D BACKGROUND SCENE -->
+  <canvas #canvas3d class="three-canvas"></canvas>
+
+  <!-- * PARTICLE SYSTEM OVERLAY -->
+  <canvas #particleCanvas class="particle-canvas"></canvas>
+
+  <!-- * MATRIX RAIN EFFECT -->
+  @if (matrixRainActive()) {
+    <div class="matrix-rain">
+      <div class="matrix-column" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]" [style.animation-delay]="i * 0.1 + 's'">
+        <span class="matrix-char">01</span>
+        <span class="matrix-char">10</span>
+        <span class="matrix-char">11</span>
+        <span class="matrix-char">00</span>
+      </div>
+    </div>
+  }
+
+  <!-- * HOLOGRAPHIC GRID OVERLAY -->
+  <div class="holographic-grid">
+    <div class="grid-lines horizontal"></div>
+    <div class="grid-lines vertical"></div>
+    <div class="grid-glow"></div>
+  </div>
+
+  <!-- * FUTURISTIC BACKGROUND EFFECTS -->
+  <div class="hero-background">
+    <!-- Animated Gradient Mesh -->
+    <div class="gradient-mesh-container">
+      <div class="gradient-orb orb-1" [style.transform]="'translate(' + mouseX() * 0.02 + 'px, ' + mouseY() * 0.02 + 'px)'"></div>
+      <div class="gradient-orb orb-2" [style.transform]="'translate(' + mouseX() * -0.03 + 'px, ' + mouseY() * -0.03 + 'px)'"></div>
+      <div class="gradient-orb orb-3" [style.transform]="'translate(' + mouseX() * 0.04 + 'px, ' + mouseY() * 0.04 + 'px)'"></div>
+    </div>
+
+    <!-- Neural Network Pattern -->
+    <svg class="neural-network-bg" viewBox="0 0 1920 1080">
+      <defs>
+        <pattern id="neural-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+          <circle cx="50" cy="50" r="1" fill="#00ff88" opacity="0.5">
+            <animate attributeName="r" values="1;3;1" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#neural-pattern)"/>
+      <path class="neural-connection" d="M0,540 Q480,340 960,540 T1920,540" stroke="#00ff88" stroke-width="0.5" fill="none" opacity="0.3">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="5s" repeatCount="indefinite"/>
+      </path>
+    </svg>
+
+    <!-- Floating Tech Elements -->
+    <div class="floating-tech-elements">
+      <div class="tech-element element-cpu" [style.transform]="'translateY(' + scrollY() * -0.1 + 'px) rotate(' + scrollY() * 0.1 + 'deg)'">
+        <div class="tech-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <path d="M9 4V1M15 4V1M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
+            <rect x="8" y="8" width="8" height="8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="tech-element element-dna" [style.transform]="'translateY(' + scrollY() * -0.15 + 'px) rotate(' + scrollY() * -0.15 + 'deg)'">
+        <div class="tech-icon">🧬</div>
+      </div>
+      <div class="tech-element element-satellite" [style.transform]="'translateY(' + scrollY() * -0.2 + 'px) rotate(' + scrollY() * 0.2 + 'deg)'">
+        <div class="tech-icon">🛰️</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- * MAIN HERO CONTENT -->
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+      
+      <!-- * FUTURISTIC BADGE -->
+      <div class="hero-badge-container" [class.loaded]="isLoaded()">
+        <div class="futuristic-badge">
+          <div class="badge-inner">
+            <span class="badge-icon">
+              <span class="icon-pulse"></span>
+              <span class="icon-core">🚀</span>
+            </span>
+            <span class="badge-text">NEXT-GEN AGRICULTURE</span>
+            <span class="badge-version">v3.0</span>
+          </div>
+          <div class="badge-glow"></div>
+          <div class="badge-particles">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- * MAIN HERO TITLE -->
+      <h1 class="hero-title" [class.glitch]="glitchActive()">
+        <span class="title-line-1">
+          <span class="title-static">Transform Your</span>
+        </span>
+        <span class="title-line-2">
+          <span class="title-dynamic" [attr.data-text]="currentDynamicText()">
+            {{ currentDynamicText() }}
+          </span>
+        </span>
+        <span class="title-decoration">
+          <svg class="title-svg" viewBox="0 0 800 100">
+            <path d="M0,50 Q200,20 400,50 T800,50" stroke="#00ff88" stroke-width="2" fill="none" opacity="0.5">
+              <animate attributeName="d" 
+                values="M0,50 Q200,20 400,50 T800,50;
+                        M0,50 Q200,80 400,50 T800,50;
+                        M0,50 Q200,20 400,50 T800,50"
+                dur="4s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+        </span>
+      </h1>
+
+      <!-- * AI-POWERED DESCRIPTION -->
+      <div class="hero-description-container">
+        <div class="ai-indicator">
+          <span class="ai-icon">🤖</span>
+          <span class="ai-label">AI-Powered</span>
+        </div>
+        <p class="hero-description">
+          <span class="typed-text">{{ typedText() }}</span>
+          <span class="typing-cursor">|</span>
+        </p>
+        <div class="description-highlights">
+          <span class="highlight-item">
+            <span class="highlight-icon">⚡</span>
+            Real-time Analytics
+          </span>
+          <span class="highlight-item">
+            <span class="highlight-icon">🛸</span>
+            Drone Technology
+          </span>
+          <span class="highlight-item">
+            <span class="highlight-icon">🔗</span>
+            Blockchain Secured
+          </span>
+        </div>
+      </div>
+
+      <!-- * FUTURISTIC CTA BUTTONS -->
+      <div class="hero-cta-container">
+        <button class="cta-button primary futuristic" (click)="onGetStarted()">
+          <span class="cta-bg"></span>
+          <span class="cta-content">
+            <span class="cta-icon">🚀</span>
+            <span class="cta-text">Launch Platform</span>
+            <span class="cta-arrow">→</span>
+          </span>
+          <div class="cta-glow"></div>
+          <div class="cta-circuit-lines">
+            <svg viewBox="0 0 200 60">
+              <path d="M0,30 L50,30 L60,20 L140,20 L150,30 L200,30" stroke="#00ff88" stroke-width="1" fill="none" opacity="0.5">
+                <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2s" repeatCount="indefinite"/>
+              </path>
+            </svg>
+          </div>
+        </button>
+
+        <button class="cta-button secondary holographic" (click)="onWatchDemo()">
+          <span class="cta-bg"></span>
+          <span class="cta-content">
+            <span class="cta-icon">▶️</span>
+            <span class="cta-text">Watch Demo</span>
+          </span>
+          <div class="hologram-effect"></div>
+        </button>
+
+        <button class="cta-button tertiary ai-powered" (click)="onExploreAI()">
+          <span class="cta-bg"></span>
+          <span class="cta-content">
+            <span class="cta-icon">🧠</span>
+            <span class="cta-text">Explore AI</span>
+          </span>
+          <div class="ai-particles">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+
+      <!-- * INTERACTIVE CONTROLS -->
+      <div class="hero-controls">
+        <button class="control-btn" (click)="toggleMatrixRain()" [class.active]="matrixRainActive()">
+          <span class="control-icon">📊</span>
+          <span class="control-label">Matrix</span>
+        </button>
+        <button class="control-btn" (click)="toggleHologram()" [class.active]="hologramActive()">
+          <span class="control-icon">🔮</span>
+          <span class="control-label">Hologram</span>
+        </button>
+        <button class="control-btn" (click)="triggerGlitchEffect()">
+          <span class="control-icon">⚡</span>
+          <span class="control-label">Glitch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- * FUTURISTIC STATS SECTION -->
+  <div class="stats-section">
+    <div class="stats-container">
+      <div class="stats-grid">
+        @for (stat of stats; track stat.label; let i = $index) {
+          <div class="stat-card futuristic" 
+               [style.animation-delay]="i * 0.1 + 's'"
+               [style.--stat-color]="stat.color">
+            <div class="stat-bg"></div>
+            <div class="stat-content">
+              <div class="stat-icon">{{ stat.icon }}</div>
+              <div class="stat-value">
+                <span class="value-number">{{ stat.animated }}</span>
+                <span class="value-suffix">{{ stat.suffix }}</span>
+              </div>
+              <div class="stat-label">{{ stat.label }}</div>
+              <div class="stat-progress">
+                <div class="progress-bar" [style.width.%]="(stat.animated / stat.value) * 100"></div>
+              </div>
+            </div>
+            <div class="stat-glow"></div>
+            <div class="stat-particles">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- * FEATURES SHOWCASE -->
+  <div class="features-section">
+    <div class="features-container">
+      <h3 class="features-title glitch-text" data-text="Core Features">Core Features</h3>
+      <div class="features-grid">
+        @for (feature of features; track feature.title) {
+          <div class="feature-card holographic-card">
+            <div class="feature-bg"></div>
+            <div class="feature-content">
+              <div class="feature-icon">{{ feature.icon }}</div>
+              <h4 class="feature-title">{{ feature.title }}</h4>
+              <p class="feature-description">{{ feature.description }}</p>
+            </div>
+            <div class="feature-border"></div>
+            <div class="feature-glow"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- * PARTNER ECOSYSTEM -->
+  <div class="partners-section">
+    <div class="partners-container">
+      <h3 class="partners-title">Trusted by Industry Leaders</h3>
+      <div class="partners-grid">
+        @for (partner of partnerLogos; track partner.name) {
+          <div class="partner-card futuristic">
+            <div class="partner-bg"></div>
+            <div class="partner-content">
+              <h4 class="partner-name">{{ partner.name }}</h4>
+              <p class="partner-description">{{ partner.description }}</p>
+              <span class="partner-industry">{{ partner.industry }}</span>
+            </div>
+            <div class="partner-hologram"></div>
+          </div>
+        }
+      </div>
+      <div class="partners-orbit">
+        <div class="orbit-ring ring-1"></div>
+        <div class="orbit-ring ring-2"></div>
+        <div class="orbit-ring ring-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- * SCROLL INDICATOR -->
+  <div class="scroll-indicator futuristic">
+    <div class="scroll-text">Scroll to Explore</div>
+    <div class="scroll-icon">
+      <div class="scroll-dot"></div>
+    </div>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- * AMBIENT SOUND TOGGLE -->
+  <button class="sound-toggle">
+    <span class="sound-icon">🔊</span>
+    <span class="sound-waves">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </button>
+</section>

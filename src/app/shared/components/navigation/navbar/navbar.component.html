@@ -1,0 +1,475 @@
+<!-- ===================================================================
+  * FUTURISTIC GLASSMORPHISM NAVBAR WITH AI & 3D EFFECTS
+  * Purpose: Next-generation navigation with advanced interactions
+  * Features: AI integration, particle systems, holographic effects
+  ===================================================================== -->
+
+<nav #navbar class="navbar-container" [class]="navbarClasses()" role="navigation" aria-label="Main navigation">
+  <!-- * PARTICLE SYSTEM CANVAS -->
+  <canvas #particleCanvas class="particle-canvas"></canvas>
+
+  <!-- * HOLOGRAPHIC BACKGROUND LAYERS -->
+  <div class="holographic-bg">
+    <div class="holographic-layer layer-1"></div>
+    <div class="holographic-layer layer-2"></div>
+    <div class="holographic-layer layer-3"></div>
+    <div class="neural-network">
+      <svg class="neural-svg" viewBox="0 0 1920 100">
+        <path
+          class="neural-path"
+          d="M0,50 Q480,20 960,50 T1920,50"
+          stroke="#10b981"
+          stroke-width="0.5"
+          fill="none"
+          stroke-dasharray="10,5"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <!-- * ANIMATED BACKGROUND OVERLAY -->
+  <div class="navbar-bg-overlay">
+    <div class="glass-morphism-bg"></div>
+    <div class="iridescent-layer"></div>
+    <div class="grid-pattern-futuristic"></div>
+  </div>
+
+  <!-- * MAGNETIC CURSOR (Hidden on mobile) -->
+  <div #magneticCursor class="magnetic-cursor" [class.active]="magneticActive()">
+    <div class="cursor-inner"></div>
+    <div class="cursor-outer"></div>
+  </div>
+
+  <!-- * MAIN NAVBAR CONTENT -->
+  <div class="navbar-content">
+    <!-- * CROPFRESH BRANDING SECTION -->
+    <div class="logo-section">
+      <a
+        routerLink="/"
+        class="logo-container magnetic-element"
+        aria-label="CropFresh Home"
+        (click)="closeMobileMenu()"
+        (mouseenter)="onElementHover('logo')"
+        (mouseleave)="onElementLeave()"
+      >
+        <!-- * MAIN LOGO WITH ANIMATION EFFECTS -->
+        <div class="brand-logo-wrapper">
+          <div class="logo-image-container">
+            <img
+              src="assets/images/logo.png"
+              alt="CropFresh Logo"
+              class="main-logo floating-element"
+              loading="lazy"
+              width="48"
+              height="48"
+              onerror="console.error('Logo failed to load:', this.src)"
+            />
+            <div class="logo-glow-effect"></div>
+            <div class="logo-particles">
+              <span class="particle p1"></span>
+              <span class="particle p2"></span>
+              <span class="particle p3"></span>
+            </div>
+          </div>
+
+          <!-- * BRAND TEXT LOGO -->
+          <div class="brand-text-container">
+            <img
+              src="assets/images/logo-text.png"
+              alt="CropFresh"
+              class="brand-text-logo"
+              loading="lazy"
+              width="120"
+              height="32"
+              onerror="console.error('Logo text failed to load:', this.src)"
+            />
+            <div class="brand-text-glow"></div>
+          </div>
+        </div>
+
+        <!-- * ENHANCED BRAND SUBTITLE -->
+        <div class="brand-tagline">
+          <p class="brand-subtitle cyber-text">
+            <span class="typing-text">Future of Agriculture</span>
+            <span class="cursor-blink">_</span>
+          </p>
+        </div>
+      </a>
+
+      <!-- * AI ASSISTANT INDICATOR -->
+      <button
+        class="ai-assistant-btn magnetic-element"
+        [class.active]="aiAssistantActive()"
+        (click)="openAIAssistant()"
+        aria-label="AI Assistant"
+      >
+        <div class="ai-icon-wrapper">
+          <div class="ai-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+              <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <circle cx="9" cy="9" r="1" fill="currentColor" />
+              <circle cx="15" cy="9" r="1" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="ai-pulse-ring"></div>
+          <div class="ai-pulse-ring delay"></div>
+        </div>
+        <span class="ai-status">AI</span>
+      </button>
+    </div>
+
+    <!-- * FUTURISTIC DESKTOP NAVIGATION -->
+    <div class="desktop-menu">
+      <ul class="nav-list" role="menubar">
+        @for (item of navigationItems; track item.route) {
+          <li class="nav-item" [class.has-dropdown]="item.children" [class.ai-powered]="item.aiPowered" role="none">
+            @if (item.children) {
+              <!-- * DROPDOWN MENU ITEM -->
+              <button
+                type="button"
+                class="nav-link dropdown-trigger magnetic-element"
+                [class]="getDropdownButtonClasses(item.route)"
+                (click)="onDropdownTriggerClick(item.route, $event)"
+                (mouseenter)="onDropdownContainerEnter(item.route)"
+                (mouseleave)="onDropdownContainerLeave(item.route)"
+                [attr.aria-expanded]="activeDropdown() === item.route"
+                [attr.aria-haspopup]="true"
+                role="menuitem"
+              >
+                <span class="nav-link-icon">{{ item.icon }}</span>
+                <span class="nav-link-text">{{ item.label }}</span>
+                @if (item.badge) {
+                  <span class="nav-badge futuristic-badge">{{ item.badge }}</span>
+                }
+                <svg
+                  class="dropdown-arrow"
+                  [class.rotated]="activeDropdown() === item.route"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M7 10L12 15L17 10"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <div class="nav-link-glow"></div>
+              </button>
+
+              <!-- * FUTURISTIC DROPDOWN MENU -->
+              @if (activeDropdown() === item.route) {
+                <div
+                  class="dropdown-menu futuristic animate-dropdown"
+                  role="menu"
+                  [attr.aria-label]="item.label + ' submenu'"
+                  (click)="onDropdownContentClick($event)"
+                  (mouseenter)="onDropdownContentMouseEnter(item.route)"
+                  (mouseleave)="onDropdownContentMouseLeave(item.route)"
+                >
+                  <div class="dropdown-hologram-bg"></div>
+                  <div class="dropdown-content">
+                    <div class="dropdown-grid">
+                      @for (child of item.children; track child.route) {
+                        <a
+                          [routerLink]="child.route"
+                          class="dropdown-link futuristic-card"
+                          role="menuitem"
+                          (click)="onDropdownLinkClick()"
+                        >
+                          <div class="dropdown-link-bg"></div>
+                          <div class="dropdown-link-content">
+                            <div class="dropdown-icon">{{ child.icon }}</div>
+                            <div class="dropdown-info">
+                              <div class="dropdown-link-header">
+                                <span class="dropdown-link-title">{{ child.label }}</span>
+                                @if (child.badge) {
+                                  <span class="dropdown-badge neon-badge">{{ child.badge }}</span>
+                                }
+                              </div>
+                              @if (child.description) {
+                                <p class="dropdown-link-description">
+                                  {{ child.description }}
+                                </p>
+                              }
+                            </div>
+                            <div class="dropdown-link-arrow">
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path
+                                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="dropdown-link-hover-effect"></div>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                </div>
+              }
+            } @else {
+              <!-- * SIMPLE NAVIGATION LINK -->
+              <a
+                [routerLink]="item.route"
+                class="nav-link magnetic-element"
+                routerLinkActive="active"
+                role="menuitem"
+                (click)="closeMobileMenu()"
+                (mouseenter)="onElementHover(item.route)"
+                (mouseleave)="onElementLeave()"
+              >
+                <span class="nav-link-icon">{{ item.icon }}</span>
+                <span class="nav-link-text">{{ item.label }}</span>
+                @if (item.badge) {
+                  <span class="nav-badge futuristic-badge">{{ item.badge }}</span>
+                }
+                <div class="nav-link-underline"></div>
+                <div class="nav-link-glow"></div>
+              </a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- * FUTURISTIC CTA SECTION -->
+    <div class="cta-section">
+      <!-- * HOLOGRAPHIC MODE TOGGLE -->
+      <button
+        class="holographic-toggle magnetic-element"
+        (click)="toggleHolographicMode()"
+        [class.active]="holographicMode()"
+        aria-label="Toggle holographic mode"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 2L2 7L12 12L22 7L12 2Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M2 17L12 22L22 17"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M2 12L12 17L22 12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- * FUTURISTIC CTA BUTTON -->
+      <a routerLink="/get-started" class="cta-button futuristic magnetic-element" (click)="closeMobileMenu()">
+        <span class="cta-button-bg"></span>
+        <span class="cta-button-text">Launch App</span>
+        <div class="cta-button-glow"></div>
+        <div class="cta-button-particles">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <svg class="cta-button-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M5 12H19M19 12L12 5M19 12L12 19"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    </div>
+
+    <!-- * FUTURISTIC MOBILE MENU TOGGLE -->
+    <button
+      type="button"
+      class="mobile-menu-toggle magnetic-element"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="mobileMenuOpen()"
+      [attr.aria-label]="mobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+    >
+      <div class="hamburger-futuristic" [class.active]="mobileMenuOpen()">
+        <div class="hamburger-box">
+          <span class="hamburger-line line-1"></span>
+          <span class="hamburger-line line-2"></span>
+          <span class="hamburger-line line-3"></span>
+          <div class="hamburger-glow"></div>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <!-- * FUTURISTIC MOBILE MENU -->
+  @if (mobileMenuOpen()) {
+    <div class="mobile-menu-overlay futuristic" role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
+      <!-- * MOBILE MENU BACKGROUND EFFECTS -->
+      <div class="mobile-menu-bg">
+        <div class="mobile-hologram-grid"></div>
+        <div class="mobile-gradient-mesh"></div>
+      </div>
+
+      <!-- * MOBILE MENU CONTENT -->
+      <div class="mobile-menu-content">
+        <div class="mobile-menu-header">
+          <div class="mobile-logo futuristic">
+            <div class="mobile-logo-icon">
+              <span class="logo-emoji">🌾</span>
+              <div class="logo-ring"></div>
+            </div>
+            <span class="mobile-logo-text neon-text">CropFresh</span>
+          </div>
+          <button
+            type="button"
+            class="mobile-menu-close magnetic-element"
+            (click)="closeMobileMenu()"
+            aria-label="Close menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- * MOBILE NAVIGATION LINKS -->
+        <nav class="mobile-nav" role="navigation">
+          <ul class="mobile-nav-list" role="menubar">
+            @for (item of navigationItems; track item.route; let i = $index) {
+              <li class="mobile-nav-item" [style.animation-delay]="i * 0.1 + 's'" role="none">
+                @if (item.children) {
+                  <!-- * MOBILE DROPDOWN ITEM -->
+                  <button
+                    type="button"
+                    class="mobile-nav-link mobile-dropdown-trigger"
+                    [class]="getMobileDropdownButtonClasses(item.route)"
+                    (click)="toggleMobileDropdown(item.route)"
+                    [attr.aria-expanded]="activeMobileDropdown() === item.route"
+                    role="menuitem"
+                  >
+                    <span class="mobile-nav-icon">{{ item.icon }}</span>
+                    <span class="mobile-nav-text">{{ item.label }}</span>
+                    @if (item.badge) {
+                      <span class="mobile-nav-badge">{{ item.badge }}</span>
+                    }
+                    <svg
+                      class="mobile-dropdown-arrow"
+                      [class.rotated]="activeMobileDropdown() === item.route"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M7 10L12 15L17 10"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+
+                  <!-- * MOBILE DROPDOWN MENU -->
+                  @if (activeMobileDropdown() === item.route) {
+                    <div class="mobile-dropdown-menu">
+                      @for (child of item.children; track child.route) {
+                        <a
+                          [routerLink]="child.route"
+                          class="mobile-dropdown-link"
+                          role="menuitem"
+                          (click)="closeMobileMenu()"
+                        >
+                          <span class="mobile-dropdown-icon">{{ child.icon }}</span>
+                          <div class="mobile-dropdown-content">
+                            <div class="mobile-dropdown-header">
+                              <span class="mobile-dropdown-title">{{ child.label }}</span>
+                              @if (child.badge) {
+                                <span class="mobile-dropdown-badge">{{ child.badge }}</span>
+                              }
+                            </div>
+                            @if (child.description) {
+                              <p class="mobile-dropdown-description">{{ child.description }}</p>
+                            }
+                          </div>
+                        </a>
+                      }
+                    </div>
+                  }
+                } @else {
+                  <!-- * SIMPLE MOBILE LINK -->
+                  <a
+                    [routerLink]="item.route"
+                    class="mobile-nav-link"
+                    routerLinkActive="active"
+                    role="menuitem"
+                    (click)="closeMobileMenu()"
+                  >
+                    <span class="mobile-nav-icon">{{ item.icon }}</span>
+                    <span class="mobile-nav-text">{{ item.label }}</span>
+                    @if (item.badge) {
+                      <span class="mobile-nav-badge">{{ item.badge }}</span>
+                    }
+                  </a>
+                }
+              </li>
+            }
+          </ul>
+
+          <!-- * MOBILE CTA BUTTON -->
+          <div class="mobile-cta-section">
+            <a routerLink="/get-started" class="mobile-cta-button futuristic" (click)="closeMobileMenu()">
+              <span class="mobile-cta-bg"></span>
+              <span class="mobile-cta-text">Launch App</span>
+              <div class="mobile-cta-particles">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  }
+</nav>
+
+<!-- * FUTURISTIC SCROLL PROGRESS BAR -->
+<div class="scroll-progress-container">
+  <div class="scroll-progress-bar" [style.width.%]="scrollProgress()">
+    <div class="progress-glow"></div>
+  </div>
+  <div class="progress-particles">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>

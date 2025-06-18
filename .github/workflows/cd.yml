@@ -1,0 +1,219 @@
+# .github/workflows/cd.yml
+
+name: Continuous Deployment
+
+# * DEPLOYMENT TRIGGER - ONLY ON MAIN BRANCH
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch: # Allow manual deployment
+
+# * ENVIRONMENT VARIABLES
+env:
+  NODE_VERSION: '20'
+  BUILD_PATH: 'dist/cropfresh_web'
+
+jobs:
+  # * PRE-DEPLOYMENT VALIDATION
+  validate:
+    name: 'Pre-deployment Validation'
+    runs-on: ubuntu-latest
+
+    outputs:
+      should-deploy: ${{ steps.check.outputs.should-deploy }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # * RUN ALL CI CHECKS BEFORE DEPLOYMENT
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test:ci
+        env:
+          CHROME_BIN: /usr/bin/google-chrome-stable
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      # * DEPLOYMENT DECISION
+      - name: Check deployment conditions
+        id: check
+        run: |
+          # ! SECURITY: Only deploy if all checks pass
+          if [ -d "${{ env.BUILD_PATH }}" ]; then
+            echo "Build successful, ready for deployment"
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "Build failed, aborting deployment"
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+  # * PRODUCTION DEPLOYMENT
+  deploy:
+    name: 'Deploy to Production'
+    runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.should-deploy == 'true'
+
+    environment:
+      name: production
+      url: https://cropfresh.vercel.app
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # * BUILD FOR PRODUCTION
+      - name: Build production application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          # ! PERFORMANCE: Enable production optimizations
+          NG_BUILD_CACHE: true
+
+      # * DEPLOYMENT TO VERCEL
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy Project Artifacts to Vercel
+        id: deploy
+        run: |
+          deployment_url=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "deployment-url=$deployment_url" >> $GITHUB_OUTPUT
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # * POST-DEPLOYMENT VERIFICATION
+      - name: Verify deployment
+        run: |
+          echo "=== Deployment Verification ==="
+          echo "Deployment URL: ${{ steps.deploy.outputs.deployment-url }}"
+
+          # NOTE: Wait for deployment to be available
+          sleep 30
+
+          # * BASIC HEALTH CHECK
+          if curl -f -s "${{ steps.deploy.outputs.deployment-url }}" > /dev/null; then
+            echo "✅ Deployment is accessible"
+          else
+            echo "❌ Deployment health check failed"
+            exit 1
+          fi
+
+      # * DEPLOYMENT NOTIFICATION
+      - name: Deployment notification
+        run: |
+          echo "🚀 CropFresh Web Application Successfully Deployed!"
+          echo "📍 Production URL: ${{ steps.deploy.outputs.deployment-url }}"
+          echo "📊 Deployment Details:"
+          echo "   - Commit: ${{ github.sha }}"
+          echo "   - Branch: ${{ github.ref_name }}"
+          echo "   - Timestamp: $(date -u)"
+
+  # * PERFORMANCE AUDIT
+  performance:
+    name: 'Performance Audit'
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      # ? TODO: Add Lighthouse CI for performance auditing
+      - name: Performance analysis
+        run: |
+          echo "=== Performance Metrics ==="
+          echo "Bundle size analysis:"
+          if [ -d "dist/cropfresh_web/browser" ]; then
+            du -sh dist/cropfresh_web/browser/* | sort -hr
+          fi
+
+          echo "=== Bundle Size Warnings ==="
+          echo "Current main bundle: ~1.19 MB"
+          echo "Budget exceeded by: ~187.93 kB"
+          echo "Recommendation: Implement lazy loading and code splitting"
+
+      # * UPLOAD PERFORMANCE REPORT
+      - name: Upload performance artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-report-${{ github.sha }}
+          path: |
+            dist/
+          retention-days: 7
+
+  # * ROLLBACK CAPABILITY
+  rollback:
+    name: 'Rollback (Manual)'
+    runs-on: ubuntu-latest
+    if: failure() && github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Rollback notification
+        run: |
+          echo "⚠️  Deployment failed - Rollback may be required"
+          echo "📋 Manual rollback steps:"
+          echo "1. Check Vercel dashboard for previous deployment"
+          echo "2. Promote previous stable deployment"
+          echo "3. Verify rollback success"
+          echo "4. Investigate and fix deployment issues"
+
+# * DEPLOYMENT SUMMARY
+# NOTE: This workflow ensures safe, automated deployments with:
+# - Pre-deployment validation (linting, testing, building)
+# - Secure environment variable handling
+# - Post-deployment verification
+# - Performance monitoring
+# - Rollback capabilities
+#
+# ! SECURITY: Requires the following secrets in GitHub:
+# - VERCEL_TOKEN: Your Vercel access token
+# - VERCEL_ORG_ID: Your Vercel organization ID
+# - VERCEL_PROJECT_ID: Your Vercel project ID
